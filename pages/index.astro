@@ -1,0 +1,58 @@
+---
+import PageLayout from "blume/components/layout/PageLayout.astro";
+import data from "blume:data";
+import "@fontsource-variable/archivo/wdth.css";
+import "./_home/home.css";
+import "./_home/scene.css";
+import Hero from "./_home/Hero.astro";
+import How from "./_home/How.astro";
+import Again from "./_home/Again.astro";
+import Compare from "./_home/Compare.astro";
+import Kit from "./_home/Kit.astro";
+import Shapes from "./_home/Shapes.astro";
+import Local from "./_home/Local.astro";
+import Download from "./_home/Download.astro";
+import Footer from "./_home/Footer.astro";
+
+const { config } = data;
+---
+
+<PageLayout
+  site={{ title: config.title, description: config.description }}
+  logo={config.logo}
+  banner={config.banner}
+  analytics={config.analytics}
+  navigation={data.navigation}
+  favicon={config.favicon}
+  appleIcon={config.appleIcon}
+  fontCssVars={data.fontCssVars}
+  themeMode={config.theme.mode}
+  searchEnabled={config.search.enabled}
+  siteUrl={config.site}
+  ogEnabled={config.og.enabled}
+  structuredDataEnabled={config.structuredData}
+  transparentHeader
+  page={{
+    title: "Opsis: product demos that film themselves",
+    description:
+      "Opsis drives your real website or terminal, records it in one take and cuts it into a finished film. Export every shape at once, and press Run again when the product changes.",
+    route: "/",
+  }}
+>
+  <div class="ox" data-home>
+    <Hero />
+    <How />
+    <Again />
+    <Compare />
+    <Shapes />
+    <Kit />
+    <Local />
+    <Download />
+  </div>
+  <Footer slot="footer" />
+</PageLayout>
+
+<script>
+  import { start } from "./_home/home";
+  start();
+</script>

@@ -1,0 +1,92 @@
+---
+import Scene from "./Scene.astro";
+import { release } from "./release";
+
+const wave = Array.from({ length: 150 }, (_, i) => {
+  const beat = Math.abs(Math.sin(i * 0.42)) * 0.5 + Math.abs(Math.sin(i * 1.37 + 1.2)) * 0.32;
+  const swell = 0.55 + 0.45 * Math.sin((i / 150) * Math.PI);
+  return Math.max(0.12, Math.min(1, (beat + 0.14) * swell));
+});
+const ruler = Array.from({ length: 12 }, (_, i) => i);
+---
+
+<section class="ox-hero" aria-labelledby="ox-hero-title">
+  <canvas class="ox-haze" data-haze="1,1.02" aria-hidden="true"></canvas>
+
+  <div class="ox-hero-head">
+    <h1 id="ox-hero-title" class="ox-hero-title">
+      <span class="ox-hero-line"><span>Product demos</span></span>
+      <span class="ox-hero-line"><span>that film <em>themselves.</em></span></span>
+    </h1>
+    <div class="ox-hero-side">
+      <p class="ox-hero-lede">
+        Opsis drives your real website or terminal, records it in one take and cuts it into a finished film. When the
+        product changes, press Run again.
+      </p>
+      <div class="ox-hero-go">
+        <div class="ox-actions">
+          <a class="ox-button ox-button-main" href={release.url}>
+            Download Opsis
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13m0 0-5.5-5.5M12 17l5.5-5.5M5 20.5h14"></path></svg>
+          </a>
+          <a class="ox-button ox-button-quiet" href="/docs">Read the docs</a>
+        </div>
+        <p class="ox-mono ox-hero-note">Free and open source. Runs on your computer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ox-hero-stage">
+    <div class="ox-viewer">
+      <i class="ox-tick ox-tick-a" aria-hidden="true"></i>
+      <i class="ox-tick ox-tick-b" aria-hidden="true"></i>
+      <i class="ox-tick ox-tick-c" aria-hidden="true"></i>
+      <i class="ox-tick ox-tick-d" aria-hidden="true"></i>
+      <Scene mode="film" class="ox-screen" data-hero-scene />
+      <button class="ox-toggle" type="button" data-hero-toggle aria-pressed="false" aria-label="Pause the film">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="ox-toggle-pause" d="M8 5v14M16 5v14"></path>
+          <path class="ox-toggle-play" d="M8 5l11 7-11 7z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ox-strip" data-strip aria-hidden="true">
+      <div class="ox-strip-side">
+        <span class="ox-timecode" data-timecode>00:00:00</span>
+        <span class="ox-strip-names">
+          <span>Text</span>
+          <span>Video</span>
+          <span>Music</span>
+        </span>
+      </div>
+      <div class="ox-strip-lanes" data-lanes>
+        <div class="ox-ruler">
+          {ruler.map((second) => <span style={`--s: ${second}`}>{second % 2 === 0 ? `0:${String(second).padStart(2, "0")}` : ""}</span>)}
+        </div>
+        <div class="ox-lane">
+          <span class="ox-clip ox-clip-text" data-span="title">Title card</span>
+          <span class="ox-clip ox-clip-text" data-span="end">Title card</span>
+        </div>
+        <div class="ox-lane">
+          <span class="ox-clip ox-clip-video" data-span="take">
+            Clip from take
+            <span class="ox-clip-marks" data-marks></span>
+          </span>
+        </div>
+        <div class="ox-lane">
+          <span class="ox-clip ox-clip-music">
+            <svg viewBox="0 0 150 20" preserveAspectRatio="none">
+              {wave.map((v, i) => <rect x={i + 0.2} y={10 - v * 9} width="0.6" height={v * 18} rx="0.3"></rect>)}
+            </svg>
+          </span>
+        </div>
+        <i class="ox-playhead" data-playhead></i>
+      </div>
+    </div>
+    <p class="ox-mono ox-strip-note">
+      <span>Drawn live in your browser. There is no video on this page.</span>
+      <span>Drag the timeline to scrub.</span>
+    </p>
+  </div>
+</section>

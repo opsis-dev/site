@@ -11,6 +11,8 @@
     "validate": "blume validate --strict"
   },
   "dependencies": {
-    "blume": "^2.2.7"
+    "@fontsource-variable/archivo": "^5.3.0",
+    "blume": "^2.2.7",
+    "gsap": "3.15.1"
   }
 }

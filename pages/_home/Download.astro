@@ -1,0 +1,31 @@
+---
+import { release } from "./release";
+
+const mark = "M315 292L711 512L315 732Z";
+---
+
+<section class="ox-download" aria-labelledby="ox-download-title">
+  <canvas class="ox-haze ox-haze-low" data-haze="0.5,0.2" aria-hidden="true"></canvas>
+  <svg class="ox-download-mark" viewBox="200 180 620 660" aria-hidden="true">
+    <defs>
+      <linearGradient id="ox-mark-wire" x1="290" y1="0" x2="740" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#f5f5f8"></stop>
+        <stop offset="0.5" stop-color="#ffb07a"></stop>
+        <stop offset="1" stop-color="#fc6b33"></stop>
+      </linearGradient>
+    </defs>
+    <path d={mark} fill="none" stroke="url(#ox-mark-wire)" stroke-width="64" stroke-linejoin="round" pathLength="1" data-mark-wire></path>
+    <circle cx="315" cy="292" r="72" fill="#f5f5f8" data-mark-node></circle>
+    <circle cx="315" cy="732" r="72" fill="#f5f5f8" data-mark-node></circle>
+    <circle cx="711" cy="512" r="88" fill="#fc6b33" data-mark-node></circle>
+  </svg>
+  <h2 id="ox-download-title" class="ox-display ox-download-title" data-split>Your next demo is one run away.</h2>
+  <div class="ox-actions ox-actions-center" data-reveal>
+    <a class="ox-button ox-button-main" href={release.url}>
+      Download Opsis
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13m0 0-5.5-5.5M12 17l5.5-5.5M5 20.5h14"></path></svg>
+    </a>
+    <a class="ox-button ox-button-quiet" href="/docs">Read the docs</a>
+  </div>
+  <p class="ox-mono ox-download-note" data-reveal>An early preview, for Linux. Free, with no account.</p>
+</section>

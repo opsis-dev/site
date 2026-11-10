@@ -1,0 +1,39 @@
+---
+import Scene from "./Scene.astro";
+---
+
+<section class="ox-again" aria-labelledby="ox-again-title" data-again>
+  <div class="ox-section-head">
+    <h2 id="ox-again-title" class="ox-heading" data-split>The product changed. The demo kept up.</h2>
+    <p class="ox-body" data-reveal>
+      A recorded demo goes stale the day the interface ships. An Opsis demo is a project, not a recording: press Run and
+      it performs the same actions on the new design and rebuilds every video.
+    </p>
+  </div>
+
+  <div class="ox-again-stage">
+    <div class="ox-again-screen" data-again-screen>
+      <Scene mode="directed" class="ox-screen" data-again-scene />
+      <span class="ox-chip ox-chip-rec"><i></i>Recording</span>
+      <div class="ox-run-progress" aria-hidden="true"><i data-run-bar></i></div>
+    </div>
+
+    <div class="ox-again-controls">
+      <p class="ox-mono ox-again-label">The app under the demo</p>
+      <div class="ox-switch" role="radiogroup" aria-label="Which design of the app">
+        <button type="button" role="radio" aria-checked="true" data-again-pick="a">Last month</button>
+        <button type="button" role="radio" aria-checked="false" data-again-pick="b">Today</button>
+      </div>
+      <button type="button" class="ox-run" data-run>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>
+        <span data-run-label>Run on today's design</span>
+      </button>
+      <ol class="ox-run-steps" aria-hidden="true" data-run-steps>
+        <li>Record the same actions</li>
+        <li>Direct the shot</li>
+        <li>Build the film</li>
+      </ol>
+      <p class="ox-run-log" aria-live="polite" data-run-log>Recorded on last month's design.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+---
+import Node from "./Node.astro";
+import { card, rounded, type NodeId, type Point } from "./graph";
+
+const points = [
+  {
+    title: "Nothing leaves your computer.",
+    text: "Recording, editing and export all run locally. Opsis goes online only when you press a button that says so.",
+  },
+  {
+    title: "Free software, for good.",
+    text: "Opsis is open source under the GPL. Your films are yours: no watermark, no account, no licence to buy.",
+  },
+  {
+    title: "Built for agents too.",
+    text: "Switch on the local API and scripts or AI agents on your computer can read, change and run the open project. Every edit they make is one undo step.",
+  },
+];
+
+const calls = [
+  { verb: "GET", path: "/openapi.json", note: "Every route, described" },
+  { verb: "POST", path: "/project/nodes", note: "Adds a Title card" },
+  { verb: "POST", path: "/project/edges", note: "Wires it into the Sequence" },
+  { verb: "POST", path: "/project/run", note: "Runs the project" },
+  { verb: "GET", path: "/project/run/events", note: "Follows the run as it happens" },
+];
+
+const board = { width: 560, height: 150 };
+const placed: { id: NodeId; x: number; y: number }[] = [
+  { id: "clip", x: 16, y: 18 },
+  { id: "title", x: 16, y: 88 },
+  { id: "sequence", x: 212, y: 53 },
+  { id: "export", x: 408, y: 53 },
+];
+const at = (id: NodeId) => placed.find((node) => node.id === id)!;
+const out = (id: NodeId): Point => [at(id).x + card.width, at(id).y + card.height / 2];
+const into = (id: NodeId): Point => [at(id).x, at(id).y + card.height / 2];
+const bend = (from: NodeId, to: NodeId): Point[] => {
+  const [x1, y1] = out(from);
+  const [x2, y2] = into(to);
+  return [
+    [x1, y1],
+    [x2 - 28, y1],
+    [x2 - 28, y2],
+    [x2, y2],
+  ];
+};
+const wires = [
+  { id: "clip", points: bend("clip", "sequence") },
+  { id: "title", points: bend("title", "sequence") },
+  { id: "sequence", points: [out("sequence"), into("export")] },
+];
+---
+
+<section class="ox-local" aria-labelledby="ox-local-title" data-local>
+  <div class="ox-local-text">
+    <h2 id="ox-local-title" class="ox-heading" data-split>On your machine, on your terms.</h2>
+    <ul class="ox-points">
+      {
+        points.map((point, i) => (
+          <li data-reveal>
+            <span class="ox-mono">0{i + 1}</span>
+            <h3>{point.title}</h3>
+            <p>{point.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="ox-api" aria-hidden="true" data-api>
+    <div class="ox-api-bar">
+      <span class="ox-mono">api.sock</span>
+      <span class="ox-api-state"><i></i>Local API on</span>
+    </div>
+    <ol class="ox-api-calls">
+      {
+        calls.map((call) => (
+          <li data-call>
+            <b>{call.verb}</b>
+            <span>{call.path}</span>
+            <em>{call.note}</em>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="ox-board ox-api-board" style={`--bw: ${board.width}; --bh: ${board.height}`}>
+      <div class="ox-board-fit">
+        <svg class="ox-wires" viewBox={`0 0 ${board.width} ${board.height}`}>
+          {
+            wires.map((wire) => (
+              <g style="--c: #a78bfa" data-api-wire={wire.id}>
+                <path class="ox-wire" d={rounded(wire.points)} pathLength="1" />
+                <circle class="ox-port" cx={wire.points[0][0]} cy={wire.points[0][1]} r="3.4" />
+                <circle class="ox-port" cx={wire.points[wire.points.length - 1][0]} cy={wire.points[wire.points.length - 1][1]} r="3.4" />
+              </g>
+            ))
+          }
+        </svg>
+        {placed.map((node) => <Node id={node.id} style={`left: ${node.x}px; top: ${node.y}px`} />)}
+      </div>
+    </div>
+  </div>
+</section>

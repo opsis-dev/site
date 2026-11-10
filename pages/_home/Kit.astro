@@ -1,0 +1,165 @@
+---
+import Scene from "./Scene.astro";
+
+const lines = [
+  { text: "Bring it in.", name: "Mask reveal up", kind: "mask" },
+  { text: "Soft and slow.", name: "Soft blur in", kind: "blur" },
+  { text: "Wide open.", name: "Tracking in", kind: "track" },
+  { text: "Letter by letter.", name: "Typewriter", kind: "type" },
+];
+const cuts = ["One", "Two", "Three", "Four"];
+const captions = [
+  { on: "click-new", words: ["Start", "a", "new", "project."] },
+  { on: "type", words: ["Give", "it", "a", "name."] },
+  { on: "click-share", words: ["Share", "it", "in", "one", "click."] },
+];
+const output = ["Building the preview", "Built in 2.4 s", "Live at preview.yourapp.com"];
+const bars = [34, 46, 41, 58, 66, 61, 82, 96];
+const combos = [
+  ["Ctrl", "K"],
+  ["Shift", "Tab"],
+  ["Ctrl", "Shift", "P"],
+  ["Esc"],
+];
+---
+
+<section class="ox-kit" aria-labelledby="ox-kit-title">
+  <div class="ox-section-head ox-section-head-split">
+    <h2 id="ox-kit-title" class="ox-heading" data-split>Everything else a product film needs.</h2>
+    <p class="ox-body" data-reveal>
+      More than a hundred motion graphics, 3D devices, 25 transitions, music and sound effects, captions and terminal
+      takes. Each one is a node in the same project. Every tile here is drawn live on this page.
+    </p>
+  </div>
+
+  <ul class="ox-kit-grid">
+    <li class="ox-tile" style="grid-area: a">
+      <div class="kt kt-term" data-tile="terminal" data-theme="0" aria-hidden="true">
+        <div class="kt-term-window">
+          <div class="kt-term-bar"><i></i><i></i><i></i></div>
+          <div class="kt-term-body">
+            <p><b>$</b> <span data-term-typed></span><em data-term-caret></em></p>
+            {
+              output.map((line, i) => (
+                <p class="kt-term-out" data-term-out>
+                  <b>{i === 0 ? "›" : "✓"}</b> {line}
+                </p>
+              ))
+            }
+            <p class="kt-term-out" data-term-out><b>$</b> <em></em></p>
+          </div>
+        </div>
+      </div>
+      <div class="ox-tile-text">
+        <h3>Terminal takes</h3>
+        <p>Real commands in a real shell, in any colour theme.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: b">
+      <div class="kt kt-tall" data-tile="captions" aria-hidden="true">
+        <Scene shape="9:16" mode="directed" data-tile-scene />
+        <div class="kt-captions">
+          {
+            captions.map((caption) => (
+              <p data-caption={caption.on}>
+                {caption.words.map((word) => (
+                  <span>{word}</span>
+                ))}
+              </p>
+            ))
+          }
+        </div>
+      </div>
+      <div class="ox-tile-text">
+        <h3>Tall cuts and captions</h3>
+        <p>Captions timed from your script, word by word.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: c">
+      <div class="kt kt-type" data-tile="type" aria-hidden="true">
+        {
+          lines.map((line) => (
+            <p class="kt-type-line" data-line={line.kind}>
+              <span>{line.text}</span>
+            </p>
+          ))
+        }
+        <span class="ox-chip kt-chip" data-line-name>{lines[0].name}</span>
+        <template data-line-names>{lines.map((line) => line.name).join("|")}</template>
+      </div>
+      <div class="ox-tile-text">
+        <h3>Animated text</h3>
+        <p>A different way in for every line.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: d">
+      <div class="kt kt-cuts" data-tile="cuts" aria-hidden="true">
+        {
+          cuts.map((cut, i) => (
+            <div class={`kt-cut kt-cut-${i}`} data-cut>
+              <span>{cut}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div class="ox-tile-text">
+        <h3>Transitions</h3>
+        <p>25 of them, and every cut can have its own.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: e">
+      <div class="kt kt-device" data-tile="device" aria-hidden="true">
+        <div class="kt-space">
+          <div class="kt-laptop" data-laptop>
+            <div class="kt-lid" data-lid>
+              <Scene mode="raw" data-tile-scene />
+            </div>
+            <div class="kt-deck"><i></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="ox-tile-text">
+        <h3>3D devices</h3>
+        <p>Put the take on a laptop, monitor or phone that turns to face the camera.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: f">
+      <div class="kt kt-chart" data-tile="chart" aria-hidden="true">
+        <div class="kt-chart-head">
+          <span class="kt-chart-num"><span data-chart-num>0</span>%</span>
+          <span class="ox-mono">Sign-ups, week on week</span>
+        </div>
+        <div class="kt-bars">
+          {bars.map((bar) => <i style={`--v: ${bar}`} data-bar />)}
+        </div>
+      </div>
+      <div class="ox-tile-text">
+        <h3>Charts and numbers</h3>
+        <p>Bars, tickers and timelines that move.</p>
+      </div>
+    </li>
+
+    <li class="ox-tile" style="grid-area: g">
+      <div class="kt kt-keys" data-tile="keys" aria-hidden="true">
+        {
+          combos.map((combo) => (
+            <div class="kt-combo" data-combo>
+              {combo.map((key) => (
+                <kbd>{key}</kbd>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+      <div class="ox-tile-text">
+        <h3>Keys on screen</h3>
+        <p>Every key and shortcut, shown as it's pressed.</p>
+      </div>
+    </li>
+  </ul>
+</section>

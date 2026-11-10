@@ -1,0 +1,21 @@
+---
+import { release } from "./release";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ox-footer">
+  <div class="ox-footer-inner">
+    <a class="ox-footer-brand" href="/">
+      <img src="/logo.svg" alt="" width="28" height="28" />
+      <span>Opsis</span>
+    </a>
+    <nav aria-label="Footer">
+      <a href="/docs">Docs</a>
+      <a href={release.url}>Download</a>
+      <a href={release.repo}>GitHub</a>
+      <a href={`${release.repo}/blob/main/LICENSE`}>Licence</a>
+    </nav>
+    <p>© {year} Opsis contributors. Free software under the GPL.</p>
+  </div>
+</footer>

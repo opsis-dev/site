@@ -1,0 +1,75 @@
+---
+import Node from "./Node.astro";
+import Scene from "./Scene.astro";
+import { board, placed, wires } from "./graph";
+
+const stages = [
+  {
+    title: "Write the actions",
+    text: "Go to the page, click New project, type a name, press Enter, share it. Each one is a node. No code, no screen recorder.",
+  },
+  {
+    title: "Opsis records a real take",
+    text: "A real browser performs every action in one clean take. No retakes, no stumbles, no stray notifications.",
+  },
+  {
+    title: "It directs the shot",
+    text: "The camera moves in on each action, the cursor glides between them and the app sits in a clean window on a backdrop.",
+  },
+  {
+    title: "You get the finished film",
+    text: "Titles, music and transitions go on top, and one export writes every shape you asked for.",
+  },
+];
+---
+
+<section class="ox-how" id="how" aria-labelledby="ox-how-title" data-how>
+  <div class="ox-how-pin" data-how-pin>
+    <div class="ox-how-text">
+      <h2 id="ox-how-title" class="ox-heading">You describe the demo. Opsis films it.</h2>
+      <ol class="ox-stages">
+        {
+          stages.map((stage, i) => (
+            <li class="ox-stage" data-stage={i} aria-current={i === 0 ? "step" : undefined}>
+              <span class="ox-stage-no ox-mono">0{i + 1}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="ox-how-screen">
+      <div class="ox-editor" data-editor data-at="0" aria-hidden="true">
+        <div class="ox-board" style={`--bw: ${board.width}; --bh: ${board.height}`}>
+          <div class="ox-board-fit">
+            <svg class="ox-wires" viewBox={`0 0 ${board.width} ${board.height}`}>
+              {
+                wires.map((wire) => (
+                  <g style={`--c: ${wire.color}`} data-wire={wire.stage}>
+                    <path class="ox-wire" d={wire.d} pathLength="1" />
+                    <path class="ox-wire-flow" d={wire.d} pathLength="1" />
+                    <circle class="ox-port" cx={wire.from[0]} cy={wire.from[1]} r="3.4" />
+                    <circle class="ox-port" cx={wire.to[0]} cy={wire.to[1]} r="3.4" />
+                  </g>
+                ))
+              }
+            </svg>
+            {placed.map((node) => <Node id={node.id} style={`left: ${node.x}px; top: ${node.y}px`} data-at={String(node.stage)} />)}
+          </div>
+        </div>
+
+        <div class="ox-preview">
+          <Scene mode="raw" class="ox-screen" data-how-scene />
+          <div class="ox-preview-empty">
+            <svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"></path></svg>
+            <span class="ox-mono">No take yet</span>
+          </div>
+          <span class="ox-chip ox-chip-rec"><i></i>Recording</span>
+          <span class="ox-chip" data-how-tag>Raw take</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

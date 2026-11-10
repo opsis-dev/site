@@ -1,0 +1,36 @@
+---
+import Scene, { type Shape } from "./Scene.astro";
+
+const shapes: { shape: Shape; name: string; use: string }[] = [
+  { shape: "16:9", name: "Wide", use: "Sites, docs and talks" },
+  { shape: "9:16", name: "Tall", use: "Stories and short video" },
+  { shape: "1:1", name: "Square", use: "Feeds and posts" },
+  { shape: "4:5", name: "Portrait", use: "Portrait feeds" },
+];
+---
+
+<section class="ox-shapes" aria-labelledby="ox-shapes-title" data-shapes>
+  <div class="ox-section-head ox-section-head-split">
+    <h2 id="ox-shapes-title" class="ox-heading" data-split>One project. Every shape.</h2>
+    <p class="ox-body" data-reveal>
+      One export writes all four. The tall, square and portrait cuts keep the whole window, move in closer on the action
+      and keep captions clear of the edges.
+    </p>
+  </div>
+
+  <ul class="ox-shapes-row">
+    {
+      shapes.map((item) => (
+        <li style={`--r: ${item.shape.replace(":", " / ")}; --f: ${item.shape.split(":").map(Number).reduce((a, b) => a / b)}`}>
+          <Scene shape={item.shape} mode="film" class="ox-screen" data-shape-scene />
+          <p class="ox-shape-label">
+            <b>
+              {item.name} <span class="ox-mono">{item.shape}</span>
+            </b>
+            <span>{item.use}</span>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

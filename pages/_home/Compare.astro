@@ -1,0 +1,30 @@
+---
+import Scene from "./Scene.astro";
+---
+
+<section class="ox-compare" aria-labelledby="ox-compare-title">
+  <div class="ox-section-head ox-section-head-split">
+    <h2 id="ox-compare-title" class="ox-heading" data-split>The same take, directed.</h2>
+    <p class="ox-body" data-reveal>
+      Drag across. On the left, what the browser recorded. On the right, what Opsis made of it: a camera that follows
+      every click, a cursor that glides, a window frame and a backdrop.
+    </p>
+  </div>
+
+  <div class="ox-compare-frame" data-compare-frame style="--split: 50%">
+    <Scene mode="raw" class="ox-compare-raw" data-compare-scene />
+    <Scene mode="directed" class="ox-compare-made" data-compare-scene />
+    <div class="ox-compare-handle" aria-hidden="true"><span></span></div>
+    <span class="ox-chip ox-compare-tag-left" aria-hidden="true">Raw take</span>
+    <span class="ox-chip ox-chip-hot ox-compare-tag-right" aria-hidden="true">Opsis</span>
+    <input
+      class="ox-compare-range"
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      aria-label="Show more of the raw take or of the finished film"
+      data-compare-range
+    />
+  </div>
+</section>

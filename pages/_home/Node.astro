@@ -1,0 +1,19 @@
+---
+import Icon from "blume/components/Icon.astro";
+import { nodes, type NodeId } from "./graph";
+
+interface Props {
+  id: NodeId;
+  class?: string;
+  style?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const { id, class: className, style, ...rest } = Astro.props;
+const node = nodes[id];
+---
+
+<span class:list={["nd", className]} style={`--c: ${node.color};${style ?? ""}`} data-node={id} {...rest}>
+  <span class="nd-glyph"><Icon name={node.icon} size={13} /></span>
+  <span class="nd-title">{node.title}</span>
+</span>

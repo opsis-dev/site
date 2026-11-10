@@ -72,12 +72,12 @@ The editor's Qt scenarios already take a picture of every step: `bun run e2e:qt 
 
 **Work.**
 
-1. **A host**, once one is picked: a push to `main` deploys the site, and `deployment.site` in `blume.config.ts` is set to `https://opsis.dev` (sitemaps, canonical tags and Open Graph images need the absolute address).
+1. **Cloudflare Workers static assets**, configured in `wrangler.jsonc`: `bun run deploy` builds and ships `dist/` to the `opsis-site` Worker. The Worker answers only on the custom domain `opsis.dev` (`workers_dev` and `preview_urls` are both `false`, so there is no `*.workers.dev` address and no per-version preview URLs), and `deployment.site` in `blume.config.ts` is `https://opsis.dev` (sitemaps, canonical tags and Open Graph images need the absolute address). A push to `main` deploying it is still to be wired up.
 2. **Links.** A link to the site in the editor's `README.md` once it is live.
 
 **Decided.**
 
-- **No deploy server for now.** Nothing builds or serves the site yet; it runs only through `bun run dev` and `bun run build` locally.
+- **Only opsis.dev serves the site.** No workers.dev URL, no preview URLs.
 - **A push to `main` is what publishes**, once a host is set up. Since `main` follows released editor versions (section 1), nothing else gates a deploy.
 
 ## 4. First pages

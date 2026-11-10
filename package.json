@@ -1,0 +1,15 @@
+{
+  "name": "opsis-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "blume dev",
+    "build": "blume build",
+    "doctor": "blume doctor",
+    "typecheck": "blume check",
+    "validate": "blume validate --strict"
+  },
+  "dependencies": {
+    "blume": "^2.2.7"
+  }
+}

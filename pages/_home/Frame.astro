@@ -1,0 +1,57 @@
+---
+import Icon from "blume/components/Icon.astro";
+import { ports, specs, word, type Port, type SpecId } from "./ports";
+
+interface Props {
+  id: SpecId;
+  from?: Port[];
+  to?: Port[];
+  state?: string;
+  aside?: string;
+  class?: string;
+}
+
+const { id, from, to, state = "Waiting", aside, class: className } = Astro.props;
+const spec = specs[id];
+const inputs = from ?? spec.inputs;
+const outputs = to ?? spec.outputs;
+---
+
+<div class:list={["fr", className]} style={`--c: ${spec.color}`} data-frame={id} data-state="waiting">
+  <div class="fr-head" aria-hidden="true">
+    <span class="fr-badge"><Icon name={spec.icon} size={14} /></span>
+    <b>{spec.title}</b>
+    <span class="fr-cat">{aside ?? spec.category}</span>
+    {
+      state && (
+        <span class="fr-state" data-frame-state>
+          <i class="fr-dot" />
+          <span data-frame-word>{state}</span>
+        </span>
+      )
+    }
+  </div>
+  <div class="fr-io" aria-hidden="true">
+    <div class="fr-ports fr-ins">
+      {
+        inputs.map((port, i) => (
+          <span class="fr-port" style={`--p: ${ports[port.kind].color}`} data-frame-in={i} data-kind={port.kind}>
+            <i />
+            {word(port)}
+          </span>
+        ))
+      }
+    </div>
+    <div class="fr-ports fr-outs">
+      {
+        outputs.map((port, i) => (
+          <span class="fr-port" style={`--p: ${ports[port.kind].color}`} data-frame-out={i} data-kind={port.kind}>
+            {word(port)}
+            <i />
+          </span>
+        ))
+      }
+    </div>
+  </div>
+  <slot />
+</div>

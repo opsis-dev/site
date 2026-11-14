@@ -1,9 +1,11 @@
 ---
 import PageLayout from "blume/components/layout/PageLayout.astro";
+import Icon from "blume/components/Icon.astro";
 import data from "blume:data";
 import "@fontsource-variable/archivo/wdth.css";
 import "./_home/home.css";
 import "./_home/scene.css";
+import "./_home/canvas.css";
 import Hero from "./_home/Hero.astro";
 import How from "./_home/How.astro";
 import Again from "./_home/Again.astro";
@@ -13,6 +15,8 @@ import Shapes from "./_home/Shapes.astro";
 import Local from "./_home/Local.astro";
 import Download from "./_home/Download.astro";
 import Footer from "./_home/Footer.astro";
+import Frame from "./_home/Frame.astro";
+import { ports, specs } from "./_home/ports";
 
 const { config } = data;
 ---
@@ -42,11 +46,36 @@ const { config } = data;
   <div class="ox" data-home>
     <Hero />
     <How />
-    <Again />
-    <Compare />
-    <Shapes />
-    <Kit />
-    <Local />
+
+    <div class="cv-start" aria-hidden="true" style={`--p: ${ports.browser.color}`}>
+      <span class="cv-node" style={`--c: ${specs.open.color}`}>
+        <span class="cv-badge"><Icon name={specs.open.icon} size={11} /></span>
+        {specs.open.title}
+        <i class="cv-start-out" data-start-out></i>
+      </span>
+      <span class="ox-mono">and the actions after it</span>
+    </div>
+
+    <Frame id="record">
+      <Again />
+    </Frame>
+
+    <Frame id="clip">
+      <Compare />
+    </Frame>
+
+    <Frame id="sequence">
+      <Kit />
+    </Frame>
+
+    <Frame id="export">
+      <Shapes />
+    </Frame>
+
+    <Frame id="note" class="fr-note" aside="Not part of the video" state="">
+      <Local />
+    </Frame>
+
     <Download />
   </div>
   <Footer slot="footer" />

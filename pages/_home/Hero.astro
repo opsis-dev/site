@@ -1,5 +1,7 @@
 ---
+import Icon from "blume/components/Icon.astro";
 import Scene from "./Scene.astro";
+import { ports, specs } from "./ports";
 import { release } from "./release";
 
 const wave = Array.from({ length: 150 }, (_, i) => {
@@ -34,6 +36,19 @@ const ruler = Array.from({ length: 12 }, (_, i) => i);
         <p class="ox-mono ox-hero-note">Free and open source. Runs on your computer.</p>
       </div>
     </div>
+  </div>
+
+  <div class="sel" aria-hidden="true" data-sel>
+    <i class="sel-h sel-tl"></i>
+    <i class="sel-h sel-tr"></i>
+    <i class="sel-h sel-bl"></i>
+    <i class="sel-h sel-br"></i>
+    <span class="sel-chip">
+      <span class="cv-badge" style={`--c: ${specs.title.color}`}><Icon name={specs.title.icon} size={11} /></span>
+      {specs.title.title}
+      <em>{specs.title.category}</em>
+    </span>
+    <span class="sel-out" style={`--p: ${ports.clip.color}`}>{ports.clip.word}<i></i></span>
   </div>
 
   <div class="ox-hero-stage">

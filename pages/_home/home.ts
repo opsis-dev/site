@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { canvas } from "./canvas";
 import { haze } from "./haze";
 import { tiles } from "./kit";
 import { every, later, listen, onScreen, reduced, teardown, wide } from "./life";
@@ -30,6 +31,7 @@ function init(): void {
     local(root);
     headings(root);
     mark(root);
+    canvas(root);
   }, root);
   later(() => ctx.revert());
   document.fonts.ready.then(() => ScrollTrigger.refresh());
